@@ -30,22 +30,22 @@
                     <table style="border-spacing:10px;border-collapse: separate;margin-left: 30px;">
                         <tr>
                             <td> <label> Name</label></td>
-                            <td><input type="text" name="name" id="name" class="form-control"></td>
+                            <td><input type="text" required name="name" id="name" class="form-control"></td>
                         </tr>
                         <tr>
                             <td><label> Email</label></td>
-                            <td><input type="email" name="email" class="form-control" id="email"></td>
+                            <td><input type="email" required name="email" class="form-control" id="email"></td>
                         </tr>
                         <tr>
                             <td><label> Phone</label></td>
-                            <td> <input type="number" name="phone" class="form-control" id="phone"></td>
+                            <td> <input type="number" required name="phone" class="form-control" id="phone"></td>
                         </tr>
                         <tr>
                             <td>
                                 <label> Password</label>
                             </td>
                             <td>
-                                <input type="password" name="password" class="form-control" id="passwd">
+                                <input type="password" required name="password" class="form-control" id="passwd">
                             </td>
                         </tr>
 
@@ -57,6 +57,9 @@
                     </table>
 
                 </form>
+                <div class="alert alert-success" id="msg" style="margin-left:100px;display: none; width: 250px;" role="alert">
+
+                </div>
             </div>
 
             <div class="col-md-6">
@@ -130,9 +133,7 @@
 
             <!-- ###### -->
 
-            <div class="alert alert-success" id="msg" style="margin-left:100px;display: none;" role="alert">
-
-            </div>
+         
         </div>
     </div>
 
@@ -186,7 +187,7 @@
                     data = response.data
                     $('#std_tbl').append("<tr class='tr' id=row" + data.id + "><td class='row-data' id=std" + data.id + ">" + data.id + "</td><td class='row-data'>"
                         + data.name + "</td><td class='row-data'>" + data.email + "</td><td class='row-data'>" + data.phone + "</td><td class='row-data'>" + data.passwd +
-                        "</td><td><button type='button' class='btn btn-primary' onclick=editStudent()>Edit</button></td><td><button type='button' class='btn btn-danger' onclick=delStudent(" + data.id + ")>Delete</button> </td></tr>")
+                        "</td><td><button type='button' class='btn btn-primary'  data-toggle='modal' data-target='#updateModal' onclick=editStudent()>Edit</button></td><td><button type='button' class='btn btn-danger' onclick=delStudent(" + data.id + ")>Delete</button> </td></tr>")
 
 
                     $('#name').val('')
@@ -223,15 +224,18 @@
             })
         }
 
-        function editStudent(id) {
-
+        function editStudent() {
+            
             var rowId = event.target.parentNode.parentNode.id // get the id of row selected
 
-            var modal = $('#updateModal').css('display', 'block')
+           
+            
+        // $('#updateModal').css('display', 'block')
 
             //get all the elements (td) inside the selected row 
-            var rowData = document.getElementById(rowId).querySelectorAll('.row-data')
 
+            var rowData = document.getElementById(rowId).querySelectorAll('.row-data')
+            console.log(rowData)
             $('#std_id').val(rowData[0].innerHTML)
             $('#std_name').val(rowData[1].innerHTML)
             $('#std_email').val(rowData[2].innerHTML)
